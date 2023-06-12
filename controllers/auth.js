@@ -8,8 +8,9 @@ const createUser = async (req, res = response) => {
 
     try {
         let user = await User.findOne({ email });
+
         if( user ) {
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'Ya existe un usuario'
             });
@@ -30,7 +31,7 @@ const createUser = async (req, res = response) => {
         });
     } catch( error) {
         console.log(error);
-        res.status(500).json({
+        return res.status(500).json({
             ok: false,
             msg: 'Por favor hable con el administrador'
         });
@@ -44,7 +45,7 @@ const loginUser = async (req, res = response) => {
     try {
         let user = await User.findOne({ email });
         if( !user ) {
-            res.status(400).json({
+            return res.status(400).json({
                 ok: false,
                 msg: 'Email or user not valid'
             });
